@@ -56,7 +56,7 @@ app.post("/github-webhook", async (req, res) => {
       | undefined;
     if (channel && channel.isTextBased()) {
       const embed = new EmbedBuilder()
-        .setTitle(`📣 Klyx ${tag}`)
+        .setTitle(`📣 Klyx ${tag} was just released!`)
         .setURL(releaseUrl)
         .setDescription(body)
         .setColor("Green")
