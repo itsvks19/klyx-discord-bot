@@ -59,8 +59,7 @@ app.post("/github-webhook", async (req, res) => {
         .setTitle(`📣 Klyx ${tag} was just released!`)
         .setURL(releaseUrl)
         .setDescription(body)
-        .setColor("Green")
-        .setTimestamp();
+        .setColor("Green");
 
       await channel.send({ embeds: [embed] });
       console.log(`Posted new release: ${releaseName}`);
