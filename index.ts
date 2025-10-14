@@ -61,7 +61,11 @@ app.post("/github-webhook", async (req, res) => {
         .setDescription(body)
         .setColor("Green");
 
-      await channel.send({ embeds: [embed] });
+      await channel.send({
+        content: "@everyone",
+        embeds: [embed],
+        allowedMentions: { parse: ["everyone"] },
+      });
       console.log(`Posted new release: ${releaseName}`);
     } else {
       console.warn("Channel not found or bot not in channel.");
