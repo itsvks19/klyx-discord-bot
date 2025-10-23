@@ -55,18 +55,26 @@ app.post("/github-webhook", async (req, res) => {
       | TextChannel
       | undefined;
     if (channel && channel.isTextBased()) {
-      const embed = new EmbedBuilder()
-        .setTitle(`📣 Klyx ${tag} was just released!`)
-        .setURL(releaseUrl)
-        .setDescription(body)
-        .setColor("Green");
+      if (tag.toLowerCase().includes("nightly")) {
+        const messageContent = `New Nightly Build Available!\n\n${body}\n\n${releaseUrl}`;
+        await channel.send({
+          content: messageContent,
+        });
+        console.log(`Posted nightly release: ${releaseName}`);
+      } else {
+        const embed = new EmbedBuilder()
+          .setTitle(`📣 Klyx ${tag} was just released!`)
+          .setURL(releaseUrl)
+          .setDescription(body)
+          .setColor("Green");
 
-      await channel.send({
-        content: "@everyone",
-        embeds: [embed],
-        allowedMentions: { parse: ["everyone"] },
-      });
-      console.log(`Posted new release: ${releaseName}`);
+        await channel.send({
+          content: "@everyone",
+          embeds: [embed],
+          allowedMentions: { parse: ["everyone"] },
+        });
+        console.log(`Posted new release: ${releaseName}`);
+      }
     } else {
       console.warn("Channel not found or bot not in channel.");
     }
