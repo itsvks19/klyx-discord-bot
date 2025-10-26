@@ -56,7 +56,7 @@ app.post("/github-webhook", async (req, res) => {
       | undefined;
     if (channel && channel.isTextBased()) {
       if (tag.toLowerCase().includes("nightly")) {
-        const messageContent = `New Nightly Build Available!\n\n${body}\n\n${releaseUrl}`;
+        const messageContent = `New Nightly Build Available!\n\n${body}\n${releaseUrl}`;
         await channel.send({
           content: messageContent,
         });
